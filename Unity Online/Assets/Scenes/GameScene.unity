@@ -186,6 +186,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7789925934691519162, guid: 2c182e2dc8b899340bf1a6582718628e,
+        type: 3}
+      propertyPath: _kichenObjectSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 80c947235c9bc1f45973ad36639f320e,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -269,6 +275,37 @@ Transform:
   - {fileID: 390304907}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 46, y: 0, z: 0}
+--- !u!1 &160265289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 160265290}
+  m_Layer: 0
+  m_Name: HandPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &160265290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160265289}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0.887}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 695315384}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +787,7 @@ MonoBehaviour:
   _countersLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  _handPosition: {fileID: 160265290}
 --- !u!4 &695315384
 Transform:
   m_ObjectHideFlags: 0
@@ -764,6 +802,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1824913953}
+  - {fileID: 160265290}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
@@ -1075,6 +1114,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter
       objectReference: {fileID: 0}
+    - target: {fileID: 7789925934691519162, guid: 2c182e2dc8b899340bf1a6582718628e,
+        type: 3}
+      propertyPath: _kichenObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fb252b8c19f7a241bd0a72636c67c1a,
+        type: 2}
+    - target: {fileID: 7789925934691519162, guid: 2c182e2dc8b899340bf1a6582718628e,
+        type: 3}
+      propertyPath: _tomatoPrefab
+      value: 
+      objectReference: {fileID: 7534376875016964281, guid: 96921f6858eb01640af59482d71dd688,
+        type: 3}
+    - target: {fileID: 7789925934691519162, guid: 2c182e2dc8b899340bf1a6582718628e,
+        type: 3}
+      propertyPath: _kichenObjectSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fb252b8c19f7a241bd0a72636c67c1a,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
