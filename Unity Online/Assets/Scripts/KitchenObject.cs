@@ -18,6 +18,7 @@ public class KitchenObject : MonoBehaviour
         }
         _kitchenObjectParent = parent;
         transform.parent = parent.GetKitchenObjectFollowTransform();
+        transform.localPosition = Vector3.zero;
         if (_kitchenObjectParent.HasKitchenObject())
             return;
         
