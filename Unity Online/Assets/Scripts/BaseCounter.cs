@@ -21,4 +21,9 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     public void ClearKitchenObject() => _kitchenObject = null;
 
     public bool HasKitchenObject() => _kitchenObject != null;
+
+    public virtual void InteractAlternate(Player player)
+    {
+        
+    }
 }
