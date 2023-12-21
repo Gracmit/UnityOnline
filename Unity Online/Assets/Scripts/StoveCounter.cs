@@ -10,7 +10,7 @@ public class StoveCounter : BaseCounter, IHasProgress
     {
         public bool stoveOn;
     }
-    
+
     [SerializeField] private FryingRecipeSO[] _recipes;
     private float _fryingTimer;
     private bool _burned;
@@ -20,8 +20,8 @@ public class StoveCounter : BaseCounter, IHasProgress
         if (HasKitchenObject() && !_burned)
         {
             _fryingTimer += Time.deltaTime;
-            
- 
+
+
             var recipe = GetFryingRecipeWithInput(GetKitchenObject().KitcheObjectSO);
 
             if (_fryingTimer >= recipe.timerMax)
@@ -34,6 +34,7 @@ public class StoveCounter : BaseCounter, IHasProgress
                     _burned = true;
                 }
             }
+
             OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs()
             {
                 progressNormalized = _fryingTimer / recipe.timerMax
@@ -73,16 +74,36 @@ public class StoveCounter : BaseCounter, IHasProgress
                 });
                 _fryingTimer = 0;
             }
+            else
+            {
+                if (player.GetKitchenObject().TryGetPlate(out var plateKitchenObject))
+                {
+                    if (plateKitchenObject.TryAddIngredient(GetKitchenObject().KitcheObjectSO))
+                    {
+                        GetKitchenObject().DestroySelf();
+
+                        OnStoveStateChanged?.Invoke(this, new OnStoveStateChangedEventArgs()
+                        {
+                            stoveOn = false
+                        });
+                        OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs()
+                        {
+                            progressNormalized = 0
+                        });
+                        _fryingTimer = 0;
+                        _burned = false;
+                    }
+                }
+            }
         }
     }
-    
+
     private bool HasRecipeWithInput(KitchenObjectSO input) => GetFryingRecipeWithInput(input) != null;
 
     private KitchenObjectSO GetOutputForInput(KitchenObjectSO input) => GetFryingRecipeWithInput(input)?.output;
 
     private FryingRecipeSO GetFryingRecipeWithInput(KitchenObjectSO input)
     {
-        
         foreach (var recipe in _recipes)
         {
             if (recipe.input == input)
@@ -93,6 +114,4 @@ public class StoveCounter : BaseCounter, IHasProgress
 
         return null;
     }
-
-    
 }
