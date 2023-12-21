@@ -16,6 +16,8 @@ public class PlateKitchenObject : KitchenObject
 
     private List<KitchenObjectSO> _kitchenObjectSos = new List<KitchenObjectSO>();
 
+    public List<KitchenObjectSO> KitchenObjectSos => _kitchenObjectSos;
+
     public bool TryAddIngredient(KitchenObjectSO kitchenObjectSo)
     {
         if (!_validKitchenObjects.Contains(kitchenObjectSo))
