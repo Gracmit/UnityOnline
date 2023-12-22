@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e50d67a301b7a94da422a1e3f9cb7f0, type: 3}
+  m_Name: GigaBurger
+  m_EditorClassIdentifier: 
+  ingredients:
+  - {fileID: 11400000, guid: 079f3fde2f00b7e4492277367a76db67, type: 2}
+  - {fileID: 11400000, guid: 240a1759dce6fbf47b769a71c70e1a1d, type: 2}
+  - {fileID: 11400000, guid: 25af2d34bcbee7547a671518d91f9077, type: 2}
+  recipeName: Cheeseburger
