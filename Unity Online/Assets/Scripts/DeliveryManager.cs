@@ -1,18 +1,25 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class DeliveryManager : MonoBehaviour
 {
+    public event EventHandler OnRecipeAdded;
+    public event EventHandler OnRecipeCompleted;
+
     public static DeliveryManager Instance => _instance;
     
     [SerializeField] private List<RecipeSO> _menu;
     
+    private const float SpawnRecipeTimerMax = 4f;
+    private const int OrdersMax = 5;
+    
     private static DeliveryManager _instance;
     private List<RecipeSO> _orders = new List<RecipeSO>();
     private float _spawnRecipeTimer;
-    private const float SpawnRecipeTimerMax = 4f;
-    private const int OrdersMax = 5;
+
+    public List<RecipeSO> Orders => _orders;
 
     private void Awake()
     {
@@ -31,6 +38,8 @@ public class DeliveryManager : MonoBehaviour
                 var order = _menu[Random.Range(0, _menu.Count)];
                 Debug.Log(order.recipeName);
                 _orders.Add(order);
+                
+                OnRecipeAdded?.Invoke(this, EventArgs.Empty);
             }
         }
     }
@@ -63,12 +72,12 @@ public class DeliveryManager : MonoBehaviour
 
                 if (plateMatchesOrder)
                 {
-                    Debug.Log("Correct Recipe!");
                     _orders.Remove(order);
+                    OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
                     return;
                 }
             }
         }
-        Debug.Log("Wrong Recipe");
     }
+    
 }

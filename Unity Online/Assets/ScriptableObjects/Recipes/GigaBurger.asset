@@ -16,4 +16,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 079f3fde2f00b7e4492277367a76db67, type: 2}
   - {fileID: 11400000, guid: 240a1759dce6fbf47b769a71c70e1a1d, type: 2}
   - {fileID: 11400000, guid: 25af2d34bcbee7547a671518d91f9077, type: 2}
-  recipeName: Cheeseburger
+  - {fileID: 11400000, guid: 9c7f20ba5703ddd41b23da5e3f4f3142, type: 2}
+  - {fileID: 11400000, guid: 085d379905e2e794cac7eae37edd0cc5, type: 2}
+  recipeName: Giga Burger
