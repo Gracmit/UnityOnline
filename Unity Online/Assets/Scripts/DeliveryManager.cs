@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 using Random = UnityEngine.Random;
 
 public class DeliveryManager : MonoBehaviour
 {
     public event EventHandler OnRecipeAdded;
     public event EventHandler OnRecipeCompleted;
+    public event EventHandler OnRecipeSuccess;
+    public event EventHandler OnRecipeFailed;
 
     public static DeliveryManager Instance => _instance;
     
@@ -74,10 +77,12 @@ public class DeliveryManager : MonoBehaviour
                 {
                     _orders.Remove(order);
                     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
+                    OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
                     return;
                 }
             }
         }
+        OnRecipeFailed?.Invoke(this, EventArgs.Empty);
     }
     
 }
