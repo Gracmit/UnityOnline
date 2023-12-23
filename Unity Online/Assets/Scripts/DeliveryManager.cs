@@ -21,13 +21,17 @@ public class DeliveryManager : MonoBehaviour
     private static DeliveryManager _instance;
     private List<RecipeSO> _orders = new List<RecipeSO>();
     private float _spawnRecipeTimer;
+    private int _ordersDone;
 
     public List<RecipeSO> Orders => _orders;
+
+    public int OrdersDone => _ordersDone;
 
     private void Awake()
     {
         _instance = this;
         _spawnRecipeTimer = SpawnRecipeTimerMax;
+        _ordersDone = 0;
     }
 
     private void Update()
@@ -78,6 +82,7 @@ public class DeliveryManager : MonoBehaviour
                     _orders.Remove(order);
                     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
                     OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
+                    _ordersDone++;
                     return;
                 }
             }
