@@ -7,10 +7,14 @@ public class SoundManager : MonoBehaviour
 {
     
     [SerializeField] private AudioClipRefsSO _audiorefs;
+    public static SoundManager Instance => _instance;
     
     private static SoundManager _instance;
 
-    public static SoundManager Instance => _instance;
+
+    private float _volume = 1f;
+
+    public float Volume => _volume;
 
     private void Awake()
     {
@@ -62,18 +66,27 @@ public class SoundManager : MonoBehaviour
         PlaySound(_audiorefs.deliveryFail, counter.transform.position);
     }
 
-    private void PlaySound(AudioClip audio, Vector3 position, float volume = 1f)
+    private void PlaySound(AudioClip audio, Vector3 position, float volumeMultiplier = 1f)
     {
-        AudioSource.PlayClipAtPoint(audio, position, volume);
+        AudioSource.PlayClipAtPoint(audio, position, volumeMultiplier * _volume);
     }    
     
-    private void PlaySound(AudioClip[] audio, Vector3 position, float volume = 1f)
+    private void PlaySound(AudioClip[] audio, Vector3 position, float volumeMultiplier = 1f)
     {
-        PlaySound(audio[Random.Range(0, audio.Length)], position, volume);
+        PlaySound(audio[Random.Range(0, audio.Length)], position, volumeMultiplier);
     }
 
     public void PlayFootstepSound(Vector3 position)
     {
         PlaySound(_audiorefs.footstep, position, 0.8f);
+    }
+
+    public void ChangeVolume()
+    {
+        _volume += .1f;
+        if (_volume > 1f)
+        {
+            _volume = 0f;
+        }
     }
 }
