@@ -43,7 +43,6 @@ public class DeliveryManager : MonoBehaviour
             if (_orders.Count < OrdersMax)
             {
                 var order = _menu[Random.Range(0, _menu.Count)];
-                Debug.Log(order.recipeName);
                 _orders.Add(order);
                 
                 OnRecipeAdded?.Invoke(this, EventArgs.Empty);

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private State _state;
     private float _stateTimer = 1f;
     private static GameManager _instance;
-    private float _playingTimerMax = 10f;
+    private float _playingTimerMax = 60f;
     private bool _paused = false;
 
     public static GameManager Instance => _instance;
