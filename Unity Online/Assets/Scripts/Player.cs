@@ -1,7 +1,8 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IKitchenObjectParent
+public class Player : NetworkBehaviour, IKitchenObjectParent
 {
     public event EventHandler OnPickedSomething;
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
@@ -10,10 +11,9 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         public BaseCounter selectedCounter;
     }
     
-    public static Player Instance => _instance;
+    //public static Player Instance => _instance;
   
     [SerializeField] private float _moveSpeed = 7f;
-    [SerializeField] private GameInput _gameInput;
     [SerializeField] private LayerMask _countersLayerMask;
     [SerializeField] private Transform _handPosition;
 
@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private Vector3 _lastInteractionDirection;
     private BaseCounter _selectedCounter;
     private KitchenObject _kitchenObject;
+    private GameInput _gameInput;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void Start()
     {
+        _gameInput = GameInput.Instance;
         _gameInput.OnInteractAction += HandleInteractAction;
         _gameInput.OnInteractAlternateAction += HandleInteractAlternateAction;
     }

@@ -8,7 +8,7 @@ public class SelectedCounterVisual : MonoBehaviour
     [SerializeField] private GameObject[] _visualGameObjects;
     private void Start()
     {
-        Player.Instance.OnSelectedCounterChanged += HandleSelectedCounterChanged;
+        //Player.Instance.OnSelectedCounterChanged += HandleSelectedCounterChanged;
     }
 
     private void HandleSelectedCounterChanged(object sender, Player.OnSelectedCounterChangedEventArgs e)
