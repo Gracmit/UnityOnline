@@ -4,39 +4,53 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour, IKitchenObjectParent
 {
-    public event EventHandler OnPickedSomething;
+    public static event EventHandler OnAnyPlayerSpawned;
+
+    public static event EventHandler OnAnyPickedSomething;
+    public static void ResetStaticData()
+    {
+        OnAnyPlayerSpawned = null;
+        OnAnyPickedSomething = null;
+    }
+    
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
         public BaseCounter selectedCounter;
     }
+
     
-    //public static Player Instance => _instance;
+    public static Player LocalInstance => _localInstance;
   
     [SerializeField] private float _moveSpeed = 7f;
     [SerializeField] private LayerMask _countersLayerMask;
     [SerializeField] private Transform _handPosition;
 
-    private static Player _instance;
+    private static Player _localInstance;
     private bool _isWalking;
     private Vector3 _lastInteractionDirection;
     private BaseCounter _selectedCounter;
     private KitchenObject _kitchenObject;
     private GameInput _gameInput;
 
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-        }
-    }
-
     private void Start()
     {
         _gameInput = GameInput.Instance;
         _gameInput.OnInteractAction += HandleInteractAction;
         _gameInput.OnInteractAlternateAction += HandleInteractAlternateAction;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            if (_localInstance == null)
+            {
+                _localInstance = this;
+            }
+        }
+        
+        OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
     }
 
     private void Update()
@@ -163,7 +177,7 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
 
         if (kitchenObject != null)
         {
-            OnPickedSomething?.Invoke(this, EventArgs.Empty);
+            OnAnyPickedSomething?.Invoke(this, EventArgs.Empty);
         }
     }
 
