@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Video;
 using Random = UnityEngine.Random;
 
-public class DeliveryManager : MonoBehaviour
+public class DeliveryManager : NetworkBehaviour
 {
     public event EventHandler OnRecipeAdded;
     public event EventHandler OnRecipeCompleted;
@@ -36,18 +36,29 @@ public class DeliveryManager : MonoBehaviour
 
     private void Update()
     {
+        if (!IsServer)
+        {
+            return;
+        }
         _spawnRecipeTimer += Time.deltaTime;
         if (_spawnRecipeTimer >= SpawnRecipeTimerMax)
         {
             _spawnRecipeTimer = 0f;
             if (_orders.Count < OrdersMax)
             {
-                var order = _menu[Random.Range(0, _menu.Count)];
-                _orders.Add(order);
-                
-                OnRecipeAdded?.Invoke(this, EventArgs.Empty);
+                var orderIndex = Random.Range(0, _menu.Count);
+                SpawnNewWaitingRecipeClientRpc(orderIndex);
             }
         }
+    }
+
+    [ClientRpc]
+    public void SpawnNewWaitingRecipeClientRpc(int orderIndex)
+    {
+        var order = _menu[orderIndex];
+        _orders.Add(order);
+                
+        OnRecipeAdded?.Invoke(this, EventArgs.Empty);
     }
 
     public void DeliverRecipe(PlateKitchenObject plateKitchenObject)
@@ -78,15 +89,31 @@ public class DeliveryManager : MonoBehaviour
 
                 if (plateMatchesOrder)
                 {
-                    _orders.Remove(order);
-                    OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
-                    OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
-                    _ordersDone++;
+                    DeliveredCorrectRecipeServerRpc(_orders.IndexOf(order));
                     return;
                 }
             }
         }
-        OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+        DeliveredWrongRecipeServerRpc();
+        
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DeliveredWrongRecipeServerRpc() => DeliveredWrongRecipeClientRpc();
+
+    [ClientRpc]
+    private void DeliveredWrongRecipeClientRpc() => OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DeliveredCorrectRecipeServerRpc(int orderIndex) => DeliveredCorrectRecipeClientRpc(orderIndex);
+
+    [ClientRpc]
+    private void DeliveredCorrectRecipeClientRpc(int orderIndex)
+    {
+        _orders.RemoveAt(orderIndex);
+        OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
+        OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
+        _ordersDone++;   
     }
     
 }
