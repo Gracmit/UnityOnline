@@ -2,7 +2,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class BaseCounter : MonoBehaviour, IKitchenObjectParent
+public class BaseCounter : NetworkBehaviour, IKitchenObjectParent
 {
     public static event EventHandler OnAnyObjectPlaced;
     [SerializeField] private Transform _counterTopPoint;
@@ -39,7 +39,7 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     public bool HasKitchenObject() => _kitchenObject != null;
     public NetworkObject GetNetworkObject()
     {
-        return null;
+        return NetworkObject;
     }
 
     public virtual void InteractAlternate(Player player)

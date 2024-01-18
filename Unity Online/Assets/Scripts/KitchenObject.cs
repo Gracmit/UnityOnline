@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -5,21 +6,41 @@ public class KitchenObject : NetworkBehaviour
 {
     [SerializeField] private KitchenObjectSO _kitchenObject;
 
-    private IKitchenObjectParent _kitchenObjectParent;
-
     public KitchenObjectSO KitcheObjectSO => _kitchenObject;
-
     public IKitchenObjectParent KitchenObjectParent => _kitchenObjectParent;
+
+    private IKitchenObjectParent _kitchenObjectParent;
+    private FollowTransform _followTransform;
+
+    private void Awake()
+    {
+        _followTransform = GetComponent<FollowTransform>();
+    }
+
 
     public void SetKitchenObjectParent(IKitchenObjectParent parent)
     {
+        SetKitchenObjectServerRpc(parent.GetNetworkObject());
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetKitchenObjectServerRpc(NetworkObjectReference kitchenObjectParentNetworkObjectReference)
+    {
+        SetKitchenObjectClientRpc(kitchenObjectParentNetworkObjectReference);
+    }
+
+    [ClientRpc]
+    private void SetKitchenObjectClientRpc(NetworkObjectReference kitchenObjectParentNetworkObjectReference)
+    {
+        kitchenObjectParentNetworkObjectReference.TryGet(out NetworkObject kitchenObjectParentNetworkObject);
+        var parent = kitchenObjectParentNetworkObject.GetComponent<IKitchenObjectParent>();
+        
         if (_kitchenObjectParent != null)
         {
             _kitchenObjectParent.ClearKitchenObject();
         }
         _kitchenObjectParent = parent;
-        //transform.parent = parent.GetKitchenObjectFollowTransform();
-        //  transform.localPosition = Vector3.zero;
+        _followTransform.SetTargetTransform(parent.GetKitchenObjectFollowTransform());
         if (_kitchenObjectParent.HasKitchenObject())
             return;
         
