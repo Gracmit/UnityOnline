@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     private State _state;
     private float _stateTimer = 1f;
     private static GameManager _instance;
-    private float _playingTimerMax = 60f;
     private bool _paused = false;
+    private readonly float _playingTimerMax = 300f;
 
     public static GameManager Instance => _instance;
 
@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     {
         _instance = this;
         //_state = State.WaitingToStart;
+        _stateTimer = _playingTimerMax;
         _state = State.Playing;
     }
 
