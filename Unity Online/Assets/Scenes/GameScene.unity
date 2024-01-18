@@ -3917,6 +3917,83 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aadcfc348cbea2438c01e12fa60ac43, type: 3}
+--- !u!1 &806473612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806473614}
+  - component: {fileID: 806473616}
+  - component: {fileID: 806473615}
+  m_Layer: 0
+  m_Name: '[KITCHEN GAME MULTIPLAYER]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &806473614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806473612}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &806473615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806473612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41408271eeff4094e9efd6534ad3fa44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _kitchenObjectSos:
+  - {fileID: 11400000, guid: 079f3fde2f00b7e4492277367a76db67, type: 2}
+  - {fileID: 11400000, guid: 08e9318567e8aae49987261ec32f9ebd, type: 2}
+  - {fileID: 11400000, guid: 9c7f20ba5703ddd41b23da5e3f4f3142, type: 2}
+  - {fileID: 11400000, guid: 2fb252b8c19f7a241bd0a72636c67c1a, type: 2}
+  - {fileID: 11400000, guid: 240a1759dce6fbf47b769a71c70e1a1d, type: 2}
+  - {fileID: 11400000, guid: 89698f227a99b884d900d26cda83128f, type: 2}
+  - {fileID: 11400000, guid: 25af2d34bcbee7547a671518d91f9077, type: 2}
+  - {fileID: 11400000, guid: 0914609244709ef41abd0ea2408b209f, type: 2}
+  - {fileID: 11400000, guid: dadf6eb1b676e0e43ad799593ba78606, type: 2}
+  - {fileID: 11400000, guid: 80c947235c9bc1f45973ad36639f320e, type: 2}
+  - {fileID: 11400000, guid: 085d379905e2e794cac7eae37edd0cc5, type: 2}
+--- !u!114 &806473616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806473612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3696742167
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!4 &812672351 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3376552204963422700, guid: 7aadcfc348cbea2438c01e12fa60ac43,
@@ -9105,6 +9182,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1919921034}
   - {fileID: 98293378}
+  - {fileID: 806473614}
   - {fileID: 485733761}
   - {fileID: 550652132}
   - {fileID: 268993807}
